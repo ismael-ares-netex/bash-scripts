@@ -1,7 +1,7 @@
 #!/bin/bash
 
-STORAGE_DIR="~/Documentos/AppImages"
-BIN_DIR="~/.bin"
+STORAGE_DIR="$HOME/Documentos/AppImages"
+BIN_DIR="$HOME/.bin"
 REPO="imputnet/helium-linux"
 EXE_NAME="helium"
 
