@@ -41,6 +41,7 @@ if [ $? -eq 0 ]; then
     ln -sf "$FULL_PATH" "$BIN_DIR/$EXE_NAME"
     
     find "$STORAGE_DIR" -maxdepth 1 -type f -name "*Helium*.AppImage" ! -name "$FILENAME" -delete
+    find "$STORAGE_DIR" -maxdepth 1 -type f -name "*helium*.AppImage" ! -name "$FILENAME" -delete
     
     echo "✅ Proceso finalizado."
     echo "📦 Archivo guardado en: $FULL_PATH"
