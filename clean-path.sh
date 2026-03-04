@@ -1,4 +1,8 @@
 #!/bin/bash
+# @desc: Clears the contents of a directory with confirmation and safety pause
+# @usage: clean-dir.sh <path>
+# @args: path=Path of the directory to clean
+# @tags: filesystem, cleanup
 
 TARGET_DIR=$1
 

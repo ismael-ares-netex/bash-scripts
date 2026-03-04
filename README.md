@@ -1,34 +1,33 @@
-# 🚀 Scripts de Automatización
+# 🐚 Bash Scripts
+Personal bash script collection to make my life easier.
 
-Colección de scripts personales para facilitarme la vida.
+## 🛠 Available scripts
 
-## 🛠 Scripts disponibles
+### 1. Update Docker Compose
+Installs or updates Docker Compose to version **v2.38.2** into `~/.bin/`.
 
-### 1. Actualizar Docker Compose
-Instala o actualiza Docker Compose a la versión **v2.38.2** en el directorio `~/.bin/`.
-
-**Comando:**
+**Command:**
 ```bash
 curl -s https://raw.githubusercontent.com/ismael-ares-netex/scripts/main/update-docker-compose.sh | bash
 ```
-### 2. Actualizar Helium Browser
-Instala o actualiza el navegador **Helium** descargando la última AppImage en `~/Documentos/` y creando un enlace simbólico en `~/.bin/`.
+### 2. Update Helium Browser
+Installs or updates the **Helium** browser by downloading the latest AppImage into `~/Documentos/` and creating a symlink in `~/.bin/`.
 
-**Comando:**
+**Command:**
 ```bash
 curl -s https://raw.githubusercontent.com/ismael-ares-netex/scripts/main/update-helium.sh | bash
 ```
-### 3. Actualizar Ghostty Terminal
-Instala o actualiza la terminal **Ghostty** descargando la última AppImage en `~/Documentos/` y creando un enlace simbólico en `~/.bin/`.
+### 3. Update Ghostty Terminal
+Installs or updates the **Ghostty** terminal by downloading the latest stable AppImage into `~/Documentos/` and creating a symlink in `~/.bin/`.
 
-**Comando:**
+**Command:**
 ```bash
 curl -s https://raw.githubusercontent.com/ismael-ares-netex/scripts/main/update-ghostty.sh | bash
 ```
-### 4. Limpiar directorios
-Limpia cualquier path con la seguridad de ver que borras y con una cuenta atrás de seguridad. Compatible con ls, eza y exa
+### 4. Clean directory
+Cleans any path safely, showing what will be deleted and with a countdown before deletion. Compatible with ls, eza and exa.
 
-**Comando:**
+**Command:**
 ```bash
 curl -s https://raw.githubusercontent.com/ismael-ares-netex/scripts/main/clean-path.sh | bash -s -- /path/to/clean
 ```

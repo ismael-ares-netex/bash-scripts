@@ -1,4 +1,7 @@
 #!/bin/bash
+# @desc: Downloads and installs the latest stable Ghostty AppImage, removing old versions
+# @usage: install-ghostty.sh
+# @tags: appimage, install, ghostty
 
 STORAGE_DIR="$HOME/Documentos/AppImages"
 BIN_DIR="$HOME/.bin"
@@ -8,7 +11,7 @@ EXE_NAME="ghostty"
 mkdir -p "$STORAGE_DIR"
 mkdir -p "$BIN_DIR"
 
-echo "🔍 Buscando la última versión estable de Ghostty..."
+echo "🔍 Looking for the latest stable Ghostty release..."
 
 ARCH=$(uname -m)
 [[ "$ARCH" == "x86_64" ]] && GITHUB_ARCH="x86_64" || GITHUB_ARCH="aarch64"
@@ -16,7 +19,7 @@ ARCH=$(uname -m)
 RELEASE_DATA=$(curl -s "https://api.github.com/repos/$REPO/releases")
 
 if [ -z "$RELEASE_DATA" ] || [ "$RELEASE_DATA" == "null" ]; then
-    echo "❌ Error de conexión o límite de API alcanzado."
+    echo "❌ Connection error or API rate limit reached."
     exit 1
 fi
 
@@ -26,11 +29,11 @@ VERSION=$(echo "$RELEASE_DATA" | jq -r '
 ' | head -n 1)
 
 if [ -z "$VERSION" ] || [ "$VERSION" == "null" ]; then
-    echo "❌ No se encontró ninguna versión estable."
+    echo "❌ No stable version found."
     exit 1
 fi
 
-echo "📌 Última versión estable encontrada: $VERSION"
+echo "📌 Latest stable version found: $VERSION"
 
 DOWNLOAD_URL=$(echo "$RELEASE_DATA" | jq -r --arg ver "$VERSION" --arg arch "$GITHUB_ARCH" '
     .[] | select(.tag_name == $ver)
@@ -41,7 +44,7 @@ DOWNLOAD_URL=$(echo "$RELEASE_DATA" | jq -r --arg ver "$VERSION" --arg arch "$GI
 ' | head -n 1)
 
 if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" == "null" ]; then
-    echo "❌ No se encontró AppImage para la arquitectura '$GITHUB_ARCH'."
+    echo "❌ No AppImage found for architecture '$GITHUB_ARCH'."
     exit 1
 fi
 
@@ -49,11 +52,11 @@ FILENAME=$(basename "$DOWNLOAD_URL")
 FULL_PATH="$STORAGE_DIR/$FILENAME"
 
 if [ -f "$FULL_PATH" ]; then
-    echo "✅ Ya tienes la última versión estable ($VERSION) en Documentos."
+    echo "✅ You already have the latest stable version ($VERSION) in Documentos."
     exit 0
 fi
 
-echo "⬇️  Descargando versión $VERSION..."
+echo "⬇️  Downloading version $VERSION..."
 wget -q --show-progress -O "$FULL_PATH" "$DOWNLOAD_URL"
 
 if [ $? -eq 0 ]; then
@@ -62,12 +65,11 @@ if [ $? -eq 0 ]; then
 
     find "$STORAGE_DIR" -maxdepth 1 -type f -name "*ghostty*.AppImage" ! -name "$FILENAME" -delete
     find "$STORAGE_DIR" -maxdepth 1 -type f -name "*Ghostty*.AppImage" ! -name "$FILENAME" -delete
-
-    echo "✅ Proceso finalizado."
-    echo "📦 Archivo guardado en: $FULL_PATH"
-    echo "🔗 Enlace creado en:    $BIN_DIR/$EXE_NAME"
+    echo "✅ Process completed."
+    echo "📦 File saved at: $FULL_PATH"
+    echo "🔗 Symlink created at: $BIN_DIR/$EXE_NAME"
 else
     rm -f "$FULL_PATH"
-    echo "❌ Error en la descarga."
+    echo "❌ Download failed."
     exit 1
 fi
